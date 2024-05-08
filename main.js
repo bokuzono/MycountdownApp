@@ -1,0 +1,34 @@
+'use script' 
+
+{
+ function check() {
+    // 残り時間 = 終了時刻 - 現在時刻
+    let countdown = endTime - new Date().getTime();
+
+    // (3) タイマーの終了
+    if (countdown < 0) {
+      clearInterval(intervalId);
+      countdown = 3 * 1000;
+    }
+
+    const totalSeconds = Math.floor(countdown / 1000);
+    const minuts = Math.floor(totalSeconds / 60);
+    const seconds = Math.floor(totalSeconds % 60);
+
+    timer.textContent = `${minuts}:${seconds}`;
+ }
+
+ const timer = document.querySelector('#timer');
+ const btn = document.querySelector('#btn');
+ let endTime;
+ let intervalId;
+
+ // (1) 終了時刻を求める
+ btn.addEventListener('click', ()=> {
+    endTime = new Date().getTime() + 3 * 1000;
+       
+    // (2) 残り時間を求める
+    intervalId = setInterval(check, 100);
+   });
+ 
+}
